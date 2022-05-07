@@ -17,10 +17,6 @@ namespace Business.Concrete
         {
             _lessonDal = lessonDal;
         }
-
-        public void Add(Lesson lesson)
-        {
-            _lessonDal.Add(lesson);
-        }
+        
     }
 }

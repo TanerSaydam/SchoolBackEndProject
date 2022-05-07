@@ -9,6 +9,6 @@ namespace Business.Abstract
 {
     public interface ILessonService
     {
-        void Add(Lesson lesson);
+        
     }
 }
