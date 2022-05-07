@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 namespace DataAccess.Concrete.Context
 {
     public class SchoolContextDb : DbContext
-    {
+    {  
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer("server=DESKTOP-3BJ5GK9;Database=SchoolDb;Integrated Security=true");
-        }
+        }               
 
         public virtual DbSet<Adminstrator> Adminstrators { get; set; }
         public virtual DbSet<Class> Classes { get; set; }
