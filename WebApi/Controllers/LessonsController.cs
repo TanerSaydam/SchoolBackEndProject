@@ -2,7 +2,6 @@
 using Business.Concrete;
 using DataAccess.Concrete;
 using Entities.Concrete;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebApi.Controllers
