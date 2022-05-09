@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Entities.Concrete;
+using Entities.Dtos;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,5 +10,7 @@ namespace Business.Abstract
 {
     public interface IStudentService
     {
+        void Add(StudentRegisterDto registerDto);
+        List<Student> GetList();
     }
 }
