@@ -1,13 +1,11 @@
 ﻿using Business.Abstract;
 using Business.Constans;
+using Business.ValidationRules;
+using Core.Aspects.Validaiton;
+using Core.Utilities.Results.Abstract;
+using Core.Utilities.Results.Concrete;
 using DataAccess.Abstract;
 using Entities.Concrete;
-using Entities.Dtos;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Business.Concrete
 {
@@ -20,44 +18,31 @@ namespace Business.Concrete
             _lessonDal = lessonDal;
         }
 
-        public Result Add(Lesson lesson)
+        [ValidationAspect(typeof(LessonValidator))]
+        public IResult Add(Lesson lesson)
         {
-            Result result = new Result()
-            {
-                Message = Messages.AddedLesson,
-                Success = true
-            };
-
+            //Validation Kontrol
             _lessonDal.Add(lesson);
-            return result;
+            //Log, Cachle
+            return new SuccessResult(Messages.AddedLesson);
         }
 
-        public void Update(Lesson lesson)
+        public IResult Update(Lesson lesson)
         {
             _lessonDal.Update(lesson);
+            return new SuccessResult(Messages.UpdateLesson);
         }
 
-        public DataResult<Lesson> GetById(int id)
+        public IDataResult<Lesson> GetById(int id)
         {
-            DataResult<Lesson> dataResult = new DataResult<Lesson>()
-            {
-                Data = _lessonDal.Get(p => p.Id == id),
-                Message = Messages.GetLesson,
-                Success = true
-            };
-            return dataResult;
+            var result = _lessonDal.Get(p => p.Id == id);
+            return new SuccessDataResult<Lesson>(result);
         }
 
-        public DataResult<List<Lesson>> GetList()
+        public IDataResult<List<Lesson>> GetList()
         {
             var result = _lessonDal.GetList();
-            DataResult<List<Lesson>> dataResult = new DataResult<List<Lesson>>()
-            {
-                Data = result,
-                Message = Messages.GetListLesson,
-                Success = true
-            };
-            return dataResult;
+            return new SuccessDataResult<List<Lesson>>(result);
         }
     }
 }
