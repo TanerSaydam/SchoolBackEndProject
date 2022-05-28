@@ -1,6 +1,5 @@
 ﻿using Business.Abstract;
 using Entities.Dtos;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebApi.Controllers
@@ -17,18 +16,47 @@ namespace WebApi.Controllers
         }
 
         [HttpPost("add")]
-        public IActionResult Add(TeacherRegisterDto registerDto)
+        public IActionResult Add([FromForm] TeacherRegisterDto registerDto)
         {
-            _teacherService.Add(registerDto);
-            var results = _teacherService.GetList();
-            return Ok(results);
+            var result = _teacherService.Add(registerDto);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result.Message);
         }
 
         [HttpGet("getlist")]
         public IActionResult GetList()
-        {            
+        {
             var results = _teacherService.GetList();
-            return Ok(results);
+            if (results.Success)
+            {
+                return Ok(results);
+            }
+            return BadRequest(results.Message);
+        }
+
+        [HttpGet("getById")]
+        public IActionResult GetById(int id)
+        {
+            var result = _teacherService.GetById(id);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result.Message);
+        }
+
+        [HttpGet("update")]
+        public IActionResult Update([FromForm] TeacherRegisterDto teacherDto)
+        {
+            var result = _teacherService.Update(teacherDto);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result.Message);
         }
 
     }
