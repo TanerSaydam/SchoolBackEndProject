@@ -48,7 +48,7 @@ namespace WebApi.Controllers
             return BadRequest(result.Message);
         }
 
-        [HttpGet("update")]
+        [HttpPost("update")]
         public IActionResult Update([FromForm] TeacherRegisterDto teacherDto)
         {
             var result = _teacherService.Update(teacherDto);

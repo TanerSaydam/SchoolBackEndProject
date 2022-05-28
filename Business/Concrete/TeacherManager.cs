@@ -134,11 +134,12 @@ namespace Business.Concrete
 
                 fileName = _fileService.SaveFileToServer(teacherRegisterDto.Image, @"C:\Youtube\SchoolFrontEndProject\src\assets\img\Teachers\");
             }
+            else
+            {
+                fileName = teacher.ImageUrl;
+            }
 
-            fileName = teacher.ImageUrl;
-
-
-            var teacherEntity = CreateTeacherEntity(teacherRegisterDto, fileName);
+            var teacherEntity = CreateTeacherEntityForUpdate(teacherRegisterDto, fileName, teacher);
 
             _teacherDal.Update(teacherEntity);
 
@@ -147,8 +148,6 @@ namespace Business.Concrete
 
         public Teacher CreateTeacherEntityForUpdate(TeacherRegisterDto registerDto, string fileName, Teacher teacher)
         {
-            byte[] paswordHash, paswordSalt;
-            HashingHelper.CreatePasswordHash("1", out paswordHash, out paswordSalt);
             Teacher teacherEntity = new Teacher()
             {
                 Gender = registerDto.Gender,
